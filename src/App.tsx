@@ -26,6 +26,28 @@ function App() {
             },
           ],
         },
+        {
+          menu: "Todos",
+          icon: icon.ListTodoIcon,
+          items: [
+            {
+              subMenu: "Create",
+              content: <NotImplemented />,
+            },
+            {
+              subMenu: "Select",
+              content: <NotImplemented />,
+            },
+            {
+              subMenu: "Update",
+              content: <NotImplemented />,
+            },
+            {
+              subMenu: "Delete",
+              content: <NotImplemented />,
+            },
+          ],
+        },
       ]}
     />
   );
