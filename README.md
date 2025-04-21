@@ -1,54 +1,143 @@
-# React + TypeScript + Vite
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<a id="readme-top"></a>
 
-Currently, two official plugins are available:
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
 
-## Expanding the ESLint configuration
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![project_license][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/palmerusaf/CSE-412-Final-Project">
+    <img src="./public/vite.svg" alt="Logo" width="80" height="80">
+  </a>
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+<h3 align="center">Y-A-T-A</h3>
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  <p align="center">
+    Yet Another Todo App
+    <br />
+    <a href="https://github.com/palmerusaf/CSE-412-Final-Project"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/palmerusaf/CSE-412-Final-Project">View Demo</a>
+    &middot;
+    <a href="https://github.com/palmerusaf/CSE-412-Final-Project/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    &middot;
+    <a href="https://github.com/palmerusaf/CSE-412-Final-Project/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+This is a project to practice advance SQL queries.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+- [x] Sidebar
+- [ ] Add six standard queries
+  - [ ] Project Queries
+    - [ ] Create
+    - [ ] Read
+    - [ ] Delete
+  - [ ] Project Queries
+    - [ ] Create
+    - [ ] Read
+    - [ ] Delete
+- [ ] Add two advanced queries
+  - [ ] Recursion
+  - [ ] ???
+
+See the [open issues](https://github.com/palmerusaf/CSE-412-Final-Project/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Visit [CONTRIBUTING.md](./CONTRIBUTING.md) for guidance.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Top contributors:
+
+<a href="https://github.com/palmerusaf/CSE-412-Final-Project/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=palmerusaf/CSE-412-Final-Project" alt="contrib.rocks image" />
+</a>
+
+<!-- CONTACT -->
+
+## Contact
+
+Branden - brandenpalmer08@gmail.com
+
+Project Link: [https://github.com/palmerusaf/CSE-412-Final-Project](https://github.com/palmerusaf/CSE-412-Final-Project)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/palmerusaf/CSE-412-Final-Project.svg?style=for-the-badge
+[contributors-url]: https://github.com/palmerusaf/CSE-412-Final-Project/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/palmerusaf/CSE-412-Final-Project.svg?style=for-the-badge
+[forks-url]: https://github.com/palmerusaf/CSE-412-Final-Project/network/members
+[stars-shield]: https://img.shields.io/github/stars/palmerusaf/CSE-412-Final-Project.svg?style=for-the-badge
+[stars-url]: https://github.com/palmerusaf/CSE-412-Final-Project/stargazers
+[issues-shield]: https://img.shields.io/github/issues/palmerusaf/CSE-412-Final-Project.svg?style=for-the-badge
+[issues-url]: https://github.com/palmerusaf/CSE-412-Final-Project/issues
+[license-shield]: https://img.shields.io/github/license/palmerusaf/CSE-412-Final-Project.svg?style=for-the-badge
+[license-url]: https://github.com/palmerusaf/CSE-412-Final-Project/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
