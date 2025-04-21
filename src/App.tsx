@@ -1,5 +1,22 @@
+import { SideBar } from "@/components/sidebar";
+import * as icon from "lucide-react";
 function App() {
-  return <div className="bg-amber-400">hello world</div>;
+  return (
+    <SideBar
+      menuData={[
+        {
+          menu: "main menu",
+          icon: icon.AArrowDown,
+          items: [
+            {
+              subMenu: "subMenu",
+              content: "foo",
+            },
+          ],
+        },
+      ]}
+    />
+  );
 }
 
 export default App;
