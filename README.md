@@ -41,7 +41,7 @@
     <a href="https://github.com/palmerusaf/CSE-412-Final-Project"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/palmerusaf/CSE-412-Final-Project">View Demo</a>
+    <a href="https://palmerusaf.github.io/CSE-412-Final-Project/">View Demo</a>
     &middot;
     <a href="https://github.com/palmerusaf/CSE-412-Final-Project/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
