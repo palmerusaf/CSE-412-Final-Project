@@ -88,12 +88,10 @@ function _NavMain({
 }: {
   items: {
     menu: string;
-    url: string;
     icon?: LucideIcon;
     isActive?: boolean;
     items?: {
       subMenu: string;
-      url: string;
     }[];
   }[];
   setActive: React.Dispatch<
