@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "gendb": "pnpm drizzle-kit generate --dialect=postgresql --schema=./src/backend/schema.ts",
+    "gendb": "rm -rf ./drizzle/;pnpm drizzle-kit generate --dialect=postgresql --schema=./src/backend/schema.ts;echo 'export const createTbleSqlRaw = `' > ./src/backend/createTbleSqlRaw.ts;cat ./drizzle/*sql >> ./src/backend/createTbleSqlRaw.ts;echo '\n`;'>> ./src/backend/createTbleSqlRaw.ts",
     "preview": "vite preview"
   },
   "drizzle-kit": {
