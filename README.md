@@ -74,7 +74,7 @@ This is a project to practice advance SQL queries.
 ## Roadmap
 
 - [x] Sidebar
-- [ ] Add six standard queries
+- [x] Add six standard queries
   - [x] Project Queries
     - [x] Create
     - [x] Read
