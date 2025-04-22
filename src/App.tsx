@@ -114,8 +114,8 @@ function CreateProject() {
     mutate({ name: inputData as string });
   };
   return (
-    <div className="flex justify-center content-center">
-      <Card>
+    <div className="flex justify-center content-center px-4">
+      <Card className="md:min-w-lg">
         <CardHeader>
           <CardTitle>Create Project</CardTitle>
           <CardDescription>Enter project name below.</CardDescription>
