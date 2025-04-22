@@ -1,3 +1,10 @@
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { createTbleSqlRaw } from "./createTbleSqlRaw";
@@ -11,10 +18,19 @@ client.exec(createTbleSqlRaw);
 await client.waitReady;
 const db = drizzle({ client });
 
-async function newProject({ name }: typeof projects.$inferInsert) {
-  return await db.insert(projects).values({ name });
+const queryClient = useQueryClient();
+
+export function useNewProject() {
+  return useMutation({
+    mutationFn: ({ name }: typeof projects.$inferInsert) =>
+      db.insert(projects).values({ name }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
+  });
 }
 
-async function getProjects() {
-  return await db.select().from(projects);
+export function useGetProjects() {
+  return useQuery({
+    queryKey: ["projects"],
+    queryFn: () => db.select().from(projects),
+  });
 }
