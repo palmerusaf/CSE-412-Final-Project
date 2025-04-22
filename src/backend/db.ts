@@ -46,6 +46,14 @@ export function useNewTodo() {
   });
 }
 
+export function useDeleteTodo() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => db.delete(todos).where(eq(todos.id, id)),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+  });
+}
+
 export function useGetTodos(id: number) {
   return useQuery({
     queryKey: ["todos", id],

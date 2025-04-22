@@ -11,6 +11,7 @@ import * as icon from "lucide-react";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
 import {
+  useDeleteTodo,
   useDelProject,
   useGetProjects,
   useGetTodos,
@@ -92,12 +93,16 @@ function DeleteTodo() {
   );
 
   function _DeleteTodo({ name, id }: { name: string; id: number }) {
-    const { data } = useGetTodos(id);
+    const { data, refetch } = useGetTodos(id);
+    const { mutate } = useDeleteTodo();
     const todos = data?.map(({ title, id }) => (
       <_DeleteTodoItem
         name={title}
         key={id}
-        click={() => console.log({ id })}
+        click={() => {
+          mutate(id);
+          refetch();
+        }}
       />
     ));
     return (
@@ -107,7 +112,7 @@ function DeleteTodo() {
             <CardTitle>Delete {name} Todos</CardTitle>
             <CardDescription>Select a todo to delete below.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex flex-col gap-2">
             {!data || !data.length ? "No Todos" : todos}
           </CardContent>
         </Card>
@@ -174,15 +179,20 @@ function CreateTodo() {
                 e.preventDefault(); // prevent native form submission
                 const formData = new FormData(e.currentTarget);
                 const inputData = formData.get("input");
-                mutate({ title: inputData as string, projectId: id });
                 setisPending(true);
                 setTimeout(() => {
+                  mutate({ title: inputData as string, projectId: id });
                   setisPending(false);
                 }, 1000);
               }}
             >
               <Input name="input" placeholder="Todo Title" />
-              <Button type="submit">
+              <Button
+                onClick={() => {
+                  second;
+                }}
+                type="submit"
+              >
                 {isPending ? "Creating Todo..." : "Create"}
               </Button>
             </form>
