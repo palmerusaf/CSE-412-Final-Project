@@ -75,11 +75,11 @@ This is a project to practice advance SQL queries.
 
 - [x] Sidebar
 - [ ] Add six standard queries
-  - [ ] Project Queries
+  - [x] Project Queries
     - [x] Create
-    - [ ] Read
-    - [ ] Delete
-  - [ ] Project Queries
+    - [x] Read
+    - [x] Delete
+  - [ ] Todo Queries
     - [ ] Create
     - [ ] Read
     - [ ] Delete

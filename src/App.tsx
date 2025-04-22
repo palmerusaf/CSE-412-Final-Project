@@ -7,11 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  MutateOptions,
+  QueryClient,
+  QueryClientProvider,
+  UseMutateFunction,
+} from "@tanstack/react-query";
 import * as icon from "lucide-react";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
-import { useNewProject } from "./backend/db";
+import { useDelProject, useGetProjects, useNewProject } from "./backend/db";
+import { Label } from "@radix-ui/react-dropdown-menu";
+import { Results } from "@electric-sql/pglite";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -76,7 +83,41 @@ const NotImplemented = () => (
   </div>
 );
 function DeleteProject() {
-  return <div>delete project</div>;
+  const { mutate } = useDelProject();
+  const { data, refetch } = useGetProjects();
+  const pjs = data?.map(({ name, id }) => (
+    <ProjectDelItem
+      name={name}
+      click={() => {
+        mutate(id);
+        refetch();
+      }}
+    />
+  ));
+  return (
+    <div className="flex justify-center content-center">
+      <Card className="min-w-lg">
+        <CardHeader>
+          <CardTitle>Delete Project</CardTitle>
+          <CardDescription>Enter project to delete below.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-2">
+          {!data || !data.length ? "No Projects" : pjs}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function ProjectDelItem({ name, click }: { name: string; click: () => void }) {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      <Label className="flex flex-col justify-center">{name}</Label>
+      <Button variant={"destructive"} onClick={click}>
+        Delete
+      </Button>
+    </div>
+  );
 }
 
 function UpdateProject() {

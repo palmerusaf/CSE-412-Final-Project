@@ -3,6 +3,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { createTbleSqlRaw } from "./createTbleSqlRaw";
 import { projects } from "./schema";
+import { eq } from "drizzle-orm";
 
 const client = new PGlite("idb://my-pgdata");
 
@@ -11,6 +12,14 @@ if (import.meta.env.DEV) indexedDB.deleteDatabase("my-pgdata");
 client.exec(createTbleSqlRaw);
 await client.waitReady;
 const db = drizzle({ client });
+
+export function useDelProject() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => db.delete(projects).where(eq(projects.id, id)),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
+  });
+}
 
 export function useNewProject() {
   const queryClient = useQueryClient();
