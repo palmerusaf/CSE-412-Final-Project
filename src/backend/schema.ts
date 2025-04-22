@@ -13,7 +13,7 @@ export const todos = t.pgTable("todos", {
   completed: t.boolean().default(false).notNull(),
   projectId: t
     .integer()
-    .references(() => projects.id)
+    .references(() => projects.id, { onDelete: "cascade" })
     .notNull(),
   createdAt: t.timestamp().defaultNow().notNull(),
 });
