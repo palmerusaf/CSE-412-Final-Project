@@ -1,8 +1,19 @@
 import { SideBar } from "@/components/sidebar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as icon from "lucide-react";
-const queryClient = new QueryClient();
+import { Input } from "./components/ui/input";
+import { Button } from "./components/ui/button";
+import { useNewProject } from "./backend/db";
 function App() {
+  const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <SideBar
@@ -77,5 +88,29 @@ function SelectProject() {
 }
 
 function CreateProject() {
-  return <div>create project page</div>;
+  const { mutate, isPending } = useNewProject();
+  const create = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // prevent native form submission
+    const formData = new FormData(e.currentTarget);
+    const inputData = formData.get("input");
+    mutate({ name: inputData as string });
+  };
+  return (
+    <div className="flex justify-center content-center">
+      <Card>
+        <CardHeader>
+          <CardTitle>Create Project</CardTitle>
+          <CardDescription>Enter project name below.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="grid grid-cols-2 gap-4" onSubmit={create}>
+            <Input name="input" placeholder="Project Name" />
+            <Button type="submit">
+              {isPending ? "Creating Project..." : "Create"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

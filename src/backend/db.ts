@@ -1,10 +1,4 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { createTbleSqlRaw } from "./createTbleSqlRaw";
@@ -18,9 +12,8 @@ client.exec(createTbleSqlRaw);
 await client.waitReady;
 const db = drizzle({ client });
 
-const queryClient = useQueryClient();
-
 export function useNewProject() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ name }: typeof projects.$inferInsert) =>
       db.insert(projects).values({ name }),

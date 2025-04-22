@@ -76,7 +76,7 @@ This is a project to practice advance SQL queries.
 - [x] Sidebar
 - [ ] Add six standard queries
   - [ ] Project Queries
-    - [ ] Create
+    - [x] Create
     - [ ] Read
     - [ ] Delete
   - [ ] Project Queries
