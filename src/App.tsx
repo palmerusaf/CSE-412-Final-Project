@@ -13,6 +13,7 @@ import { Button } from "./components/ui/button";
 import {
   useDelProject,
   useGetProjects,
+  useGetTodos,
   useNewProject,
   useNewTodo,
 } from "./backend/db";
@@ -47,10 +48,6 @@ function App() {
                 content: <CreateTodo />,
               },
               {
-                subMenu: "Update",
-                content: <NotImplemented />,
-              },
-              {
                 subMenu: "Delete",
                 content: <DeleteTodo />,
               },
@@ -71,18 +68,7 @@ const NotImplemented = () => (
 );
 
 function DeleteTodo() {
-  const { mutate } = useDelProject();
-  const { data, refetch } = useGetProjects();
-  const pjs = data?.map(({ name, id }) => (
-    <ProjectDelItem
-      key={id}
-      name={name}
-      click={() => {
-        mutate(id);
-        refetch();
-      }}
-    />
-  ));
+  const { data } = useGetProjects();
   if (!data || !data.length) {
     return (
       <div className="flex justify-center content-center">
@@ -106,17 +92,44 @@ function DeleteTodo() {
   );
 
   function _DeleteTodo({ name, id }: { name: string; id: number }) {
+    const { data } = useGetTodos(id);
+    const todos = data?.map(({ title, id }) => (
+      <_DeleteTodoItem
+        name={title}
+        key={id}
+        click={() => console.log({ id })}
+      />
+    ));
     return (
       <div className="flex justify-center content-center px-4">
         <Card className="md:min-w-lg">
           <CardHeader>
-            <CardTitle>Create {name} Todo</CardTitle>
-            <CardDescription>Enter todo name below for {name}.</CardDescription>
+            <CardTitle>Delete {name} Todos</CardTitle>
+            <CardDescription>Select a todo to delete below.</CardDescription>
           </CardHeader>
-          <CardContent>{id}</CardContent>
+          <CardContent>
+            {!data || !data.length ? "No Todos" : todos}
+          </CardContent>
         </Card>
       </div>
     );
+
+    function _DeleteTodoItem({
+      name,
+      click,
+    }: {
+      name: string;
+      click: () => void;
+    }) {
+      return (
+        <div className="grid grid-cols-2 gap-4">
+          <Label className="flex flex-col justify-center">{name}</Label>
+          <Button variant={"destructive"} onClick={click}>
+            Delete
+          </Button>
+        </div>
+      );
+    }
   }
 }
 

@@ -81,7 +81,7 @@ This is a project to practice advance SQL queries.
     - [x] Delete
   - [ ] Todo Queries
     - [x] Create
-    - [ ] Read
+    - [x] Read
     - [ ] Delete
 - [ ] Add two advanced queries
   - [ ] Recursion

@@ -38,8 +38,17 @@ export function useGetProjects() {
 }
 
 export function useNewTodo() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ title, projectId }: typeof todos.$inferInsert) =>
       db.insert(todos).values({ title, projectId }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+  });
+}
+
+export function useGetTodos(id: number) {
+  return useQuery({
+    queryKey: ["todos", id],
+    queryFn: () => db.select().from(todos).where(eq(todos.projectId, id)),
   });
 }
