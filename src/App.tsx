@@ -1,6 +1,8 @@
 import { SideBar } from "@/components/sidebar";
 import * as icon from "lucide-react";
+import { test } from "./backend/db";
 function App() {
+  test("foo").then(console.log);
   return (
     <SideBar
       menuData={[
