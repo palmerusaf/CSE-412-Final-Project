@@ -13,19 +13,19 @@ function App() {
             items: [
               {
                 subMenu: "Create",
-                content: <NotImplemented />,
+                content: <CreateProject />,
               },
               {
                 subMenu: "Select",
-                content: <NotImplemented />,
+                content: <SelectProject />,
               },
               {
                 subMenu: "Update",
-                content: <NotImplemented />,
+                content: <UpdateProject />,
               },
               {
                 subMenu: "Delete",
-                content: <NotImplemented />,
+                content: <DeleteProject />,
               },
             ],
           },
@@ -64,3 +64,18 @@ const NotImplemented = () => (
     Not Implemented.
   </div>
 );
+function DeleteProject() {
+  return <div>delete project</div>;
+}
+
+function UpdateProject() {
+  return <div>update project</div>;
+}
+
+function SelectProject() {
+  return <div>select project page</div>;
+}
+
+function CreateProject() {
+  return <div>create project page</div>;
+}
