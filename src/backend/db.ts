@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { createTbleSqlRaw } from "./createTbleSqlRaw";
-import { projects } from "./schema";
+import { projects, todos } from "./schema";
 import { eq } from "drizzle-orm";
 
 const client = new PGlite("idb://my-pgdata");
@@ -34,5 +34,12 @@ export function useGetProjects() {
   return useQuery({
     queryKey: ["projects"],
     queryFn: () => db.select().from(projects),
+  });
+}
+
+export function useNewTodo() {
+  return useMutation({
+    mutationFn: ({ title, projectId }: typeof todos.$inferInsert) =>
+      db.insert(todos).values({ title, projectId }),
   });
 }

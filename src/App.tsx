@@ -10,8 +10,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as icon from "lucide-react";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
-import { useDelProject, useGetProjects, useNewProject } from "./backend/db";
+import {
+  useDelProject,
+  useGetProjects,
+  useNewProject,
+  useNewTodo,
+} from "./backend/db";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { useState } from "react";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -69,6 +75,7 @@ const NotImplemented = () => (
 );
 
 function CreateTodo() {
+  const { mutate } = useNewTodo();
   const { data } = useGetProjects();
   if (!data || !data.length) {
     return (
@@ -84,7 +91,47 @@ function CreateTodo() {
       </div>
     );
   }
-  return <div>create</div>;
+  return (
+    <div className="flex flex-col gap-4">
+      {data.map(({ id, name }) => (
+        <_CreateTodo name={name} id={id} key={id} />
+      ))}
+    </div>
+  );
+
+  function _CreateTodo({ name, id }: { name: string; id: number }) {
+    const [isPending, setisPending] = useState(false);
+    return (
+      <div className="flex justify-center content-center px-4">
+        <Card className="md:min-w-lg">
+          <CardHeader>
+            <CardTitle>Create {name} Todo</CardTitle>
+            <CardDescription>Enter todo name below for {name}.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form
+              className="grid grid-cols-2 gap-4"
+              onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+                e.preventDefault(); // prevent native form submission
+                const formData = new FormData(e.currentTarget);
+                const inputData = formData.get("input");
+                mutate({ title: inputData as string, projectId: id });
+                setisPending(true);
+                setTimeout(() => {
+                  setisPending(false);
+                }, 1000);
+              }}
+            >
+              <Input name="input" placeholder="Todo Title" />
+              <Button type="submit">
+                {isPending ? "Creating Todo..." : "Create"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 }
 
 function DeleteProject() {

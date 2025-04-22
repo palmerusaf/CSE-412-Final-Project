@@ -80,7 +80,7 @@ This is a project to practice advance SQL queries.
     - [x] Read
     - [x] Delete
   - [ ] Todo Queries
-    - [ ] Create
+    - [x] Create
     - [ ] Read
     - [ ] Delete
 - [ ] Add two advanced queries
