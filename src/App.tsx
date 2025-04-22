@@ -38,7 +38,7 @@ function App() {
             items: [
               {
                 subMenu: "Create",
-                content: <NotImplemented />,
+                content: <CreateTodo />,
               },
               {
                 subMenu: "Select",
@@ -67,6 +67,26 @@ const NotImplemented = () => (
     Not Implemented.
   </div>
 );
+
+function CreateTodo() {
+  const { data } = useGetProjects();
+  if (!data || !data.length) {
+    return (
+      <div className="flex justify-center content-center">
+        <Card className="min-w-lg">
+          <CardHeader>
+            <CardTitle>No Projects</CardTitle>
+            <CardDescription>
+              You haven't created any projects to add todos to.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+  return <div>create</div>;
+}
+
 function DeleteProject() {
   const { mutate } = useDelProject();
   const { data, refetch } = useGetProjects();
@@ -84,7 +104,7 @@ function DeleteProject() {
       <Card className="min-w-lg">
         <CardHeader>
           <CardTitle>Delete Project</CardTitle>
-          <CardDescription>Enter project to delete below.</CardDescription>
+          <CardDescription>Select a project to delete below.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           {!data || !data.length ? "No Projects" : pjs}
