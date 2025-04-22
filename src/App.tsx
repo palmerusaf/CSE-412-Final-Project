@@ -139,6 +139,7 @@ function DeleteProject() {
   const { data, refetch } = useGetProjects();
   const pjs = data?.map(({ name, id }) => (
     <ProjectDelItem
+      key={id}
       name={name}
       click={() => {
         mutate(id);
