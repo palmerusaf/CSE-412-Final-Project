@@ -47,16 +47,12 @@ function App() {
                 content: <CreateTodo />,
               },
               {
-                subMenu: "Select",
-                content: <NotImplemented />,
-              },
-              {
                 subMenu: "Update",
                 content: <NotImplemented />,
               },
               {
                 subMenu: "Delete",
-                content: <NotImplemented />,
+                content: <DeleteTodo />,
               },
             ],
           },
@@ -73,6 +69,56 @@ const NotImplemented = () => (
     Not Implemented.
   </div>
 );
+
+function DeleteTodo() {
+  const { mutate } = useDelProject();
+  const { data, refetch } = useGetProjects();
+  const pjs = data?.map(({ name, id }) => (
+    <ProjectDelItem
+      key={id}
+      name={name}
+      click={() => {
+        mutate(id);
+        refetch();
+      }}
+    />
+  ));
+  if (!data || !data.length) {
+    return (
+      <div className="flex justify-center content-center">
+        <Card className="min-w-lg">
+          <CardHeader>
+            <CardTitle>No Projects</CardTitle>
+            <CardDescription>
+              You haven't created any projects to delete todos from.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col gap-4">
+      {data.map(({ id, name }) => (
+        <_DeleteTodo name={name} id={id} key={id} />
+      ))}
+    </div>
+  );
+
+  function _DeleteTodo({ name, id }: { name: string; id: number }) {
+    return (
+      <div className="flex justify-center content-center px-4">
+        <Card className="md:min-w-lg">
+          <CardHeader>
+            <CardTitle>Create {name} Todo</CardTitle>
+            <CardDescription>Enter todo name below for {name}.</CardDescription>
+          </CardHeader>
+          <CardContent>{id}</CardContent>
+        </Card>
+      </div>
+    );
+  }
+}
 
 function CreateTodo() {
   const { mutate } = useNewTodo();
@@ -174,12 +220,17 @@ function ProjectDelItem({ name, click }: { name: string; click: () => void }) {
 }
 
 function CreateProject() {
-  const { mutate, isPending } = useNewProject();
+  const [isPending, setisPending] = useState(false);
+  const { mutate } = useNewProject();
   const create = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // prevent native form submission
     const formData = new FormData(e.currentTarget);
     const inputData = formData.get("input");
     mutate({ name: inputData as string });
+    setisPending(true);
+    setTimeout(() => {
+      setisPending(false);
+    }, 1000);
   };
   return (
     <div className="flex justify-center content-center px-4">
@@ -192,7 +243,7 @@ function CreateProject() {
           <form className="grid grid-cols-2 gap-4" onSubmit={create}>
             <Input name="input" placeholder="Project Name" />
             <Button type="submit">
-              {isPending ? "Creating Project..." : "Create"}
+              {isPending ? "Project Created" : "Create"}
             </Button>
           </form>
         </CardContent>
