@@ -3,22 +3,15 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  MutateOptions,
-  QueryClient,
-  QueryClientProvider,
-  UseMutateFunction,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as icon from "lucide-react";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
 import { useDelProject, useGetProjects, useNewProject } from "./backend/db";
 import { Label } from "@radix-ui/react-dropdown-menu";
-import { Results } from "@electric-sql/pglite";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -32,14 +25,6 @@ function App() {
               {
                 subMenu: "Create",
                 content: <CreateProject />,
-              },
-              {
-                subMenu: "Select",
-                content: <SelectProject />,
-              },
-              {
-                subMenu: "Update",
-                content: <UpdateProject />,
               },
               {
                 subMenu: "Delete",
@@ -118,14 +103,6 @@ function ProjectDelItem({ name, click }: { name: string; click: () => void }) {
       </Button>
     </div>
   );
-}
-
-function UpdateProject() {
-  return <div>update project</div>;
-}
-
-function SelectProject() {
-  return <div>select project page</div>;
 }
 
 function CreateProject() {
