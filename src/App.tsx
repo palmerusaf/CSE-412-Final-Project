@@ -62,12 +62,6 @@ function App() {
 
 export default App;
 
-const NotImplemented = () => (
-  <div className="flex flex-col justify-center content-center w-full h-full text-center">
-    Not Implemented.
-  </div>
-);
-
 function DeleteTodo() {
   const { data } = useGetProjects();
   if (!data || !data.length) {
@@ -187,12 +181,7 @@ function CreateTodo() {
               }}
             >
               <Input name="input" placeholder="Todo Title" />
-              <Button
-                onClick={() => {
-                  second;
-                }}
-                type="submit"
-              >
+              <Button type="submit">
                 {isPending ? "Creating Todo..." : "Create"}
               </Button>
             </form>
