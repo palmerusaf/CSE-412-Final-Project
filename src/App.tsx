@@ -169,8 +169,12 @@ function ViewTodaysTodos() {
     createdAt: Date;
   }) {
     const { data } = useGetTodosToday(id);
-    const todos = data?.map(({ title, id }) => (
-      <TodoItem name={title} key={id} />
+    const todos = data?.map(({ description, title, id }) => (
+      <div key={id} className="grid grid-cols-2 p-2 rounded-2xl border gap">
+        <Label>Title: {title}</Label>
+        <Label>Created At: {createdAt.toLocaleDateString()}</Label>
+        <Label>Description: {description ?? "None"}</Label>
+      </div>
     ));
     return (
       <div className="flex justify-center content-center px-4">
@@ -184,17 +188,6 @@ function ViewTodaysTodos() {
         </Card>
       </div>
     );
-
-    function TodoItem({ name }: { name: string }) {
-      return (
-        <div className="grid grid-cols-2 gap-2">
-          <Label className="flex flex-col justify-center">{name}</Label>
-          <Label className="flex flex-col justify-center">
-            Create At: {createdAt.toLocaleDateString()}
-          </Label>
-        </div>
-      );
-    }
   }
 }
 
@@ -234,19 +227,25 @@ function CreateTodo() {
           </CardHeader>
           <CardContent>
             <form
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-1 gap-4"
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                 e.preventDefault(); // prevent native form submission
                 const formData = new FormData(e.currentTarget);
-                const inputData = formData.get("input");
+                const title = formData.get("title");
+                const desc = formData.get("desc");
                 setisPending(true);
                 setTimeout(() => {
-                  mutate({ title: inputData as string, projectId: id });
+                  mutate({
+                    description: desc as string,
+                    title: title as string,
+                    projectId: id,
+                  });
                   setisPending(false);
                 }, 1000);
               }}
             >
-              <Input name="input" placeholder="Todo Title" />
+              <Input name="title" placeholder="Todo Title" />
+              <Input name="desc" placeholder="Todo Description" />
               <Button type="submit">
                 {isPending ? "Creating Todo..." : "Create"}
               </Button>

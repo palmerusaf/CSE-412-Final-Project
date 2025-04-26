@@ -39,8 +39,12 @@ export function useGetProjects() {
 export function useNewTodo() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ title, projectId }: typeof todos.$inferInsert) =>
-      db.insert(todos).values({ title, projectId }),
+    mutationFn: ({
+      title,
+      projectId,
+      description,
+    }: typeof todos.$inferInsert) =>
+      db.insert(todos).values({ title, projectId, description }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
   });
 }
