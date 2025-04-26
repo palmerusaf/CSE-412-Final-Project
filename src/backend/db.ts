@@ -80,3 +80,17 @@ export function useGetTodosToday(projectId: number) {
         ),
   });
 }
+
+export function useSearchTodos(searchTerm: string) {
+  return useQuery({
+    queryKey: ["search", searchTerm],
+    queryFn: () =>
+      db
+        .select()
+        .from(todos)
+        .where(
+          sql`to_tsvector('english', ${todos.title} || ' ' || ${todos.description}) @@ plainto_tsquery('english', ${searchTerm})`,
+        ),
+    enabled: !!searchTerm,
+  });
+}

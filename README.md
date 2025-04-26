@@ -83,9 +83,9 @@ This is a project to practice advance SQL queries.
     - [x] Create
     - [x] Read
     - [x] Delete
-- [ ] Add two advanced queries
-  - [ ] Recursion
-  - [x] Index
+- [x] Add two advanced queries
+  - [x] Word Search
+  - [x] Created by index
 
 See the [open issues](https://github.com/palmerusaf/CSE-412-Final-Project/issues) for a full list of proposed features (and known issues).
 

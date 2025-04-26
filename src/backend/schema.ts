@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import * as t from "drizzle-orm/pg-core";
 
 export const projects = t.pgTable("projects", {
@@ -19,5 +20,13 @@ export const todos = t.pgTable(
       .notNull(),
     createdAt: t.timestamp().defaultNow().notNull(),
   },
-  (table) => [t.index("created_index").on(table.createdAt)],
+  (table) => [
+    t.index("created_index").on(table.createdAt),
+    t
+      .index("todo_search_index")
+      .using(
+        "gin",
+        sql`to_tsvector('english',${table.title} || ' ' || ${table.description})`,
+      ),
+  ],
 );

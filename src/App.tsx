@@ -18,9 +18,11 @@ import {
   useGetTodosToday,
   useNewProject,
   useNewTodo,
+  useSearchTodos,
 } from "./backend/db";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
+import { todos } from "./backend/schema";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -52,6 +54,10 @@ function App() {
               {
                 subMenu: "View Today",
                 content: <ViewTodaysTodos />,
+              },
+              {
+                subMenu: "Search",
+                content: <SearchTodos />,
               },
               {
                 subMenu: "Delete",
@@ -189,6 +195,59 @@ function ViewTodaysTodos() {
       </div>
     );
   }
+}
+
+function SearchTodos() {
+  const { data: pjData } = useGetProjects();
+  const [searchTerm, setsearchTerm] = useState("");
+  const { data: todoData } = useSearchTodos(searchTerm);
+  if (!pjData || !pjData.length) {
+    return (
+      <div className="flex justify-center content-center">
+        <Card className="min-w-lg">
+          <CardHeader>
+            <CardTitle>No Projects</CardTitle>
+            <CardDescription>You haven't created any projects.</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+  const _todos = todoData?.map(({ description, createdAt, title, id }) => (
+    <div key={id} className="grid grid-cols-2 p-2 rounded-2xl border gap">
+      <Label>Title: {title}</Label>
+      <Label>Created At: {createdAt.toLocaleDateString()}</Label>
+      <Label>Description: {description ?? "None"}</Label>
+    </div>
+  ));
+  return (
+    <div className="flex justify-center content-center px-4">
+      <Card className="md:min-w-lg">
+        <CardHeader>
+          <CardTitle>Search for Todos</CardTitle>
+          <CardDescription>
+            Enter keywords below to search for todos.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-2">
+          <form
+            className="grid grid-cols-2 gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const keywords = formData.get("keywords");
+              if (typeof keywords !== "string" || keywords === "") return;
+              setsearchTerm(keywords);
+            }}
+          >
+            <Input name="keywords" placeholder="Todo Keywords" />
+            <Button>Search</Button>
+          </form>
+          {!_todos || !_todos.length ? "No Todos" : _todos}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
 
 function CreateTodo() {
