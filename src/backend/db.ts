@@ -82,6 +82,7 @@ export function useGetTodosToday(projectId: number) {
           and(
             gte(todos.createdAt, sql`CURRENT_DATE`),
             lt(todos.createdAt, sql`CURRENT_DATE + INTERVAL '1 day'`),
+            eq(todos.projectId, projectId),
           ),
         ),
   });
