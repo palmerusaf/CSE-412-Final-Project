@@ -45,7 +45,10 @@ export function useNewTodo() {
       description,
     }: typeof todos.$inferInsert) =>
       db.insert(todos).values({ title, projectId, description }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["todos", "todos_today", "search"],
+      }),
   });
 }
 
@@ -53,7 +56,10 @@ export function useDeleteTodo() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: number) => db.delete(todos).where(eq(todos.id, id)),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["todos", "todos_today", "search"],
+      }),
   });
 }
 
