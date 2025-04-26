@@ -22,7 +22,7 @@ import {
 } from "./backend/db";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
-import { todos } from "./backend/schema";
+
 function App() {
   const queryClient = new QueryClient();
   return (
