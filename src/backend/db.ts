@@ -57,16 +57,17 @@ export function useDeleteTodo() {
   });
 }
 
-export function useGetTodos(id: number) {
+export function useGetTodos(projectId: number) {
   return useQuery({
-    queryKey: ["todos", id],
-    queryFn: () => db.select().from(todos).where(eq(todos.projectId, id)),
+    queryKey: ["todos", projectId],
+    queryFn: () =>
+      db.select().from(todos).where(eq(todos.projectId, projectId)),
   });
 }
 
-export function useGetTodosToday(id: number) {
+export function useGetTodosToday(projectId: number) {
   return useQuery({
-    queryKey: ["todos_today", id],
+    queryKey: ["todos_today", projectId],
     queryFn: () =>
       db
         .select()
