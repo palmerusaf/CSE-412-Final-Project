@@ -3,7 +3,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { createTbleSqlRaw } from "./createTbleSqlRaw";
 import { projects, todos } from "./schema";
-import { eq } from "drizzle-orm";
+import { and, eq, gte, lt, sql } from "drizzle-orm";
 
 const client = new PGlite("idb://my-pgdata");
 
@@ -57,5 +57,21 @@ export function useGetTodos(id: number) {
   return useQuery({
     queryKey: ["todos", id],
     queryFn: () => db.select().from(todos).where(eq(todos.projectId, id)),
+  });
+}
+
+export function useGetTodosToday(id: number) {
+  return useQuery({
+    queryKey: ["todos_today", id],
+    queryFn: () =>
+      db
+        .select()
+        .from(todos)
+        .where(
+          and(
+            gte(todos.createdAt, sql`CURRENT_DATE`),
+            lt(todos.createdAt, sql`CURRENT_DATE + INTERVAL '1 day'`),
+          ),
+        ),
   });
 }

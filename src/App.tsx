@@ -15,6 +15,7 @@ import {
   useDelProject,
   useGetProjects,
   useGetTodos,
+  useGetTodosToday,
   useNewProject,
   useNewTodo,
 } from "./backend/db";
@@ -47,6 +48,10 @@ function App() {
               {
                 subMenu: "Create",
                 content: <CreateTodo />,
+              },
+              {
+                subMenu: "View Today",
+                content: <ViewTodaysTodos />,
               },
               {
                 subMenu: "Delete",
@@ -126,6 +131,67 @@ function DeleteTodo() {
           <Button variant={"destructive"} onClick={click}>
             Delete
           </Button>
+        </div>
+      );
+    }
+  }
+}
+
+function ViewTodaysTodos() {
+  const { data } = useGetProjects();
+  if (!data || !data.length) {
+    return (
+      <div className="flex justify-center content-center">
+        <Card className="min-w-lg">
+          <CardHeader>
+            <CardTitle>No Projects</CardTitle>
+            <CardDescription>You haven't created any projects.</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col gap-4">
+      {data.map(({ id, name, createdAt }) => (
+        <Todo name={name} id={id} createdAt={createdAt} key={id} />
+      ))}
+    </div>
+  );
+
+  function Todo({
+    name,
+    id,
+    createdAt,
+  }: {
+    name: string;
+    id: number;
+    createdAt: Date;
+  }) {
+    const { data } = useGetTodosToday(id);
+    const todos = data?.map(({ title, id }) => (
+      <TodoItem name={title} key={id} />
+    ));
+    return (
+      <div className="flex justify-center content-center px-4">
+        <Card className="md:min-w-lg">
+          <CardHeader>
+            <CardTitle>Today's Todos for {name}</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2">
+            {!data || !data.length ? "No Todos" : todos}
+          </CardContent>
+        </Card>
+      </div>
+    );
+
+    function TodoItem({ name }: { name: string }) {
+      return (
+        <div className="grid grid-cols-2 gap-2">
+          <Label className="flex flex-col justify-center">{name}</Label>
+          <Label className="flex flex-col justify-center">
+            Create At: {createdAt.toLocaleDateString()}
+          </Label>
         </div>
       );
     }
